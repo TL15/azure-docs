@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Update
+name: UpdateFromOrigin
 
 # Controls when the workflow will run
 on:
@@ -28,7 +28,7 @@ jobs:
           # Token for the github API
           github_token: ${{ secrets.GITHUB_TOKEN}}
           # Branch to track
-          head: main
+          head: origin/main
           # Branch to keep updated
           base: main
           # Merge method to use
