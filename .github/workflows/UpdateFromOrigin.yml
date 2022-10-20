@@ -19,16 +19,37 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Fork Sync
-      # You may pin to the exact commit or the version.
-      # uses: tgymnich/fork-sync@0cc6ac48fd51415e7c34e5b8823021bc952a5f5f
-        uses: tgymnich/fork-sync@v1.2.1
+      - name: Upstream Sync
+        # You may pin to the exact commit or the version.
+        # uses: aormsby/Fork-Sync-With-Upstream-action@48f332742cb9d99febdd7ec6fb39696ad5d186f4
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.3.1
         with:
-          # Token for the github API
-          github_token: ${{ secrets.GITHUB_TOKEN}}
-          # Branch to track
-          head: origin/main
-          # Branch to keep updated
-          base: main
-          # Merge method to use
+          # Branch receiving updates from the upstream repo, e.g. => main, master, prod
+          target_sync_branch: main
+          # Input for passing secrets.GITHUB_TOKEN when disabling persistent auth in the checkout step
+          target_repo_token: ${{ secrets.GITHUB_TOKEN}}
+          # Upstream repository, e.g. => aormsby/Fork-Sync-With-Upstream-action
+          upstream_sync_repo: MicrosoftDocs/azure-docs
+          # Branch to sync from, e.g. => main, master, dev
+          upstream_sync_branch: main
+          # Any extra args to pass to `git checkout` on the source branch, e.g. --recurse-submodules :: default = ""
+          target_branch_checkout_args: ""
+          # Args to print the list of new commits from upstream :: default = --pretty=oneline
+          git_log_format_args: --pretty=oneline
+          # Git args passed when running `git pull` against the upstream repo, e.g. --ff-only or --tags :: default = ""
+          upstream_pull_args: ""
+          # Git args passed when running `git push` to apply changes to the source repo, e.g. --force :: default = ""
+          target_branch_push_args: ""
+          # Git user credentials for sigining commit, (set to "null" for no config)
+          git_config_user: GH Action - Upstream Sync
+          # Git email credentials for sigining commit (set to "null" for no config)
+          git_config_email: action@github.com
+          # Git config for "pull.rebase" settings, usually recommend false for this action (set to "null" for no config)
+          git_config_pull_rebase: "null"
+          # If set to 'true', runs verification test on all inputs and any testable actions that use them
+          test_mode: false
+          # Domain name to be used in upstream repo URL.
+          host_domain: github.com
+          # Length of time used when fetching shallow repo data, should match how often you perform a sync
+          shallow_since: 1 month ago
+
