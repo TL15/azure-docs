@@ -51,5 +51,5 @@ jobs:
           # Domain name to be used in upstream repo URL.
           host_domain: github.com
           # Length of time used when fetching shallow repo data, should match how often you perform a sync
-          shallow_since: 1 month ago
+          shallow_since: 1 day ago
 
