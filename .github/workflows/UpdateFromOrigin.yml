@@ -47,7 +47,7 @@ jobs:
           # Git config for "pull.rebase" settings, usually recommend false for this action (set to "null" for no config)
           git_config_pull_rebase: false
           # If set to 'true', runs verification test on all inputs and any testable actions that use them
-          test_mode: true
+          test_mode: false
           # Domain name to be used in upstream repo URL.
           host_domain: github.com
           # Length of time used when fetching shallow repo data, should match how often you perform a sync
